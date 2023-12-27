@@ -36,6 +36,8 @@ As you can see, there's no Assembly or TypeScript... because no.
 
 I will try to write the most efficient code possible, first in Python. And from there I'll follow the tables above and see where this goes.
 
+I'll optimize the code on the go. Won't pay too much attention to the commit history.
+
 # Removed languages
 
 - Removed Java because I remembered why I've always hated it

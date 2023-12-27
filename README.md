@@ -24,15 +24,18 @@ As you can see, there's no Assembly or TypeScript... because no.
 | 5 | C++ | 4 | Used it more than C |
 | 6 | D | 0 | Never used it but it doesn't seem hard at first glance |
 | 7 | Kotlin | 0 | Used it once for a very simple Android app with about 3 lines of code |
-| 8 | Java | 1 | Used intensively at university (2013 to 2015), I gotta stay up to date right? |
-| 9 | JavaScript | 0 | Used it a bit back in the jQuery days, I don't know anything about it |
+| 8 | JavaScript | 0 | Used it a bit back in the jQuery days, I don't know anything about it |
 
 ## Hard
 | Number | Language | Experience (in years) | Experience (descriptive) |
 | --- | --- | --- | --- |
-| 10 | Rust | 0 | Never used at all and it seems pretty hard |
-| 11 | Bash | 5 | Technically not a programming language, though the challenge seems interesting |
+| 9 | Rust | 0 | Never used at all and it seems pretty hard |
+| 10 | Bash | 5 | Technically not a programming language, though the challenge seems interesting |
 
 # The process
 
 I will try to write the most efficient code possible, first in Python. And from there I'll follow the tables above and see where this goes.
+
+# Removed languages
+
+- Removed Java because I remembered why I've always hated it

@@ -1,6 +1,6 @@
 go 1.21.5
 
 use (
-	./day-1/03-go
-	./day-2/part-1/03-go
+	./day-01/03-go
+	./day-02/part-01/03-go
 )

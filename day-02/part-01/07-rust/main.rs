@@ -2,15 +2,22 @@ use std::collections::HashMap;
 use std::fs::read_to_string;
 
 fn cubes_possible(max_cubes: &HashMap<&str, i32>, cube_color_pair: Vec<&str>) -> bool {
-    cube_color_pair.first().unwrap().parse::<i32>().unwrap() <= max_cubes[cube_color_pair.last().unwrap()]
+    cube_color_pair.first().unwrap().parse::<i32>().unwrap()
+        <= max_cubes[cube_color_pair.last().unwrap()]
 }
 
 fn is_possible(max_cubes: &HashMap<&str, i32>, game_data: &str) -> bool {
-    game_data.split("; ").collect::<Vec<&str>>()
+    game_data
+        .split("; ")
+        .collect::<Vec<&str>>()
         .iter() // iterate over cube groups
-        .all(|group| group.split(", ").collect::<Vec<&str>>()
-            .iter() // iterate over "<cube count> <cube color>" pairs
-            .all(|slice| cubes_possible(max_cubes, slice.split(" ").collect()))) // verify single pair
+        .all(|group| {
+            group
+                .split(", ")
+                .collect::<Vec<&str>>()
+                .iter() // iterate over "<cube count> <cube color>" pairs
+                .all(|slice| cubes_possible(max_cubes, slice.split(" ").collect()))
+        }) // verify single pair
 }
 
 fn game_data_from_line(line: &String) -> &str {
@@ -18,11 +25,7 @@ fn game_data_from_line(line: &String) -> &str {
 }
 
 fn main() {
-    let max_cubes: HashMap<&str, i32> = HashMap::from([
-        ("red", 12),
-        ("green", 13),
-        ("blue", 14)
-    ]);
+    let max_cubes: HashMap<&str, i32> = HashMap::from([("red", 12), ("green", 13), ("blue", 14)]);
 
     let filename = std::env::args().nth(1).expect("no input file given");
 

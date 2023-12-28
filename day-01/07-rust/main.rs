@@ -11,17 +11,15 @@ fn chars_to_int(chars: &Vec<char>) -> i32 {
 
 fn main() {
     let filename = std::env::args().nth(1).expect("no input file given");
-    let lines: Vec<String> = read_to_string(filename)
+
+    let result: i32 = read_to_string(filename)
         .unwrap()
         .lines()
-        .map(String::from)
-        .collect();
-
-    let result: i32 = lines.iter()
-        .map(|line| chars_to_int(&line.chars()
+        .map(String::from) // single line as string
+        .map(|line| chars_to_int(&line.chars() // first and last char as i32
             .filter(|c| c.is_digit(10))
             .collect::<Vec<char>>()))
-        .sum();
+        .sum(); // sum of all findings
 
     println!("{}", result);
 }

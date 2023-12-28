@@ -18,7 +18,9 @@ fn main() {
         let first: char = *digits.first().unwrap();
         let last: char = *digits.last().unwrap();
 
-        result += format!("{}{}", first, last).parse::<i32>().unwrap();
+        result += format!("{}{}", first, last)
+            .parse::<i32>()
+            .unwrap();
     }
 
     println!("{}", result);

@@ -1,63 +1,39 @@
 use std::collections::HashMap;
 use std::fs::read_to_string;
 
-fn is_possible(max_cubes: &HashMap<&str, i32>, data: &str) -> bool {
-    let groups: Vec<&str> = data.split("; ").collect();
+fn cubes_possible(max_cubes: &HashMap<&str, i32>, cube_color_pair: Vec<&str>) -> bool {
+    cube_color_pair.first().unwrap().parse::<i32>().unwrap() <= max_cubes[cube_color_pair.last().unwrap()]
+}
 
-    for group in groups.iter() {
-        let slices: Vec<&str> = group.split(", ").collect();
+fn is_possible(max_cubes: &HashMap<&str, i32>, game_data: &str) -> bool {
+    game_data.split("; ").collect::<Vec<&str>>()
+        .iter() // iterate over cube groups
+        .all(|group| group.split(", ").collect::<Vec<&str>>()
+            .iter() // iterate over "<cube count> <cube color>" pairs
+            .all(|slice| cubes_possible(max_cubes, slice.split(" ").collect()))) // verify single pair
+}
 
-        for slice in slices.iter() {
-            let value: Vec<&str> = slice.split(" ").collect();
-
-            let cubes: i32 = value
-                .first()
-                .unwrap()
-                .parse::<i32>()
-                .unwrap();
-
-            let mut color: String = value.last().unwrap().to_string();
-
-            if color.ends_with("\n") {
-                color.pop();
-            }
-
-            if cubes > max_cubes[&*color] {
-                return false;
-            }
-        }
-    }
-
-    return true;
+fn game_data_from_line(line: &String) -> &str {
+    &line[line.find(":").unwrap() + 2..line.len()]
 }
 
 fn main() {
-    let filename = std::env::args().nth(1).expect("no input file given");
-    let lines: Vec<String> = read_to_string(filename)
-        .unwrap()
-        .lines()
-        .map(String::from)
-        .collect();
-
     let max_cubes: HashMap<&str, i32> = HashMap::from([
         ("red", 12),
         ("green", 13),
         ("blue", 14)
     ]);
 
-    let mut result: i32 = 0;
-    let mut game_id: i32 = 0;
+    let filename = std::env::args().nth(1).expect("no input file given");
 
-    for line in lines.iter() {
-        game_id += 1;
-
-        let data_start: usize = line.find(":").unwrap() + 2;
-        let data: &str = &line[data_start..line.len()];
-
-        if is_possible(&max_cubes, data) {
-            result += game_id;
-        }
-    }
+    let result: usize = read_to_string(filename)
+        .unwrap()
+        .lines()
+        .map(String::from) // single line as string
+        .enumerate() // game ID = line index + 1
+        .filter(|s| is_possible(&max_cubes, game_data_from_line(&s.1))) // filter possible cube groups
+        .map(|s| s.0 + 1) // retrieve the game IDs of all matches
+        .sum(); // sum of all game IDs
 
     println!("{}", result);
 }

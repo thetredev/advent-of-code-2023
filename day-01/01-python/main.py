@@ -1,16 +1,12 @@
 import sys
 
 
-def lex(path: str) -> int:
-    result: int = 0
-
+def lex(path: str) -> None:
     with open(path) as fp:
         for line in fp:
             digits = [x for x in line if x.isdigit()]
-            result += int(f"{digits[0]}{digits[-1]}")
-
-    return result
+            yield int(f"{digits[0]}{digits[-1]}")
 
 
 if __name__ == "__main__":
-    print(lex(sys.argv[1]))
+    print(sum(lex(sys.argv[1])))

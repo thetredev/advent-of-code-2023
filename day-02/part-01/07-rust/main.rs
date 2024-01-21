@@ -21,9 +21,8 @@ fn game_data_from_line(line: &String) -> &str {
 }
 
 fn main() {
-    let max_cubes: HashMap<&str, i32> = HashMap::from([("red", 12), ("green", 13), ("blue", 14)]);
-
     let filename = std::env::args().nth(1).expect("no input file given");
+    let max_cubes: HashMap<&str, i32> = HashMap::from([("red", 12), ("green", 13), ("blue", 14)]);
 
     let result: usize = read_to_string(filename)
         .unwrap()

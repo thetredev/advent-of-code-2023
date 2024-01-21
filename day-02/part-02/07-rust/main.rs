@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::fs::read_to_string;
 
 fn cubes_product(game_data: &str) -> i32 {
-    let mut cube_data: HashMap<&str, i32> = HashMap::from([("red", 0), ("green", 0), ("blue", 0)]);
+    let mut cubes: HashMap<&str, i32> = HashMap::from([("red", 0), ("green", 0), ("blue", 0)]);
 
     for group in game_data.split("; ") {
         for slice in group.split(", ") {
@@ -11,13 +11,13 @@ fn cubes_product(game_data: &str) -> i32 {
             let cube_count: i32 = cube_slice.next_back().unwrap().parse::<i32>().unwrap();
 
             // remember maximum value for each color
-            if cube_count > cube_data[cube_color] {
-                cube_data.insert(cube_color, cube_count);
+            if cube_count > cubes[cube_color] {
+                cubes.insert(cube_color, cube_count);
             }
         }
     }
 
-    cube_data.values().product()
+    cubes.values().product()
 }
 
 fn game_data_from_line(line: &String) -> &str {

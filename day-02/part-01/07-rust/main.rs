@@ -8,14 +8,10 @@ fn cubes_possible(max_cubes: &HashMap<&str, i32>, cube_color_pair: Vec<&str>) ->
 
 fn is_possible(max_cubes: &HashMap<&str, i32>, game_data: &str) -> bool {
     game_data
-        .split("; ")
-        .collect::<Vec<&str>>()
-        .iter() // iterate over cube groups
+        .split("; ") // iterate over cube groups
         .all(|group| {
             group
-                .split(", ")
-                .collect::<Vec<&str>>()
-                .iter() // iterate over "<cube count> <cube color>" pairs
+                .split(", ") // iterate over "<cube count> <cube color>" pairs
                 .all(|slice| cubes_possible(max_cubes, slice.split(' ').collect()))
         }) // verify single pair
 }

@@ -4,26 +4,22 @@ use std::fs::read_to_string;
 fn cubes_product(game_data: &str) -> i32 {
     let mut cube_data: HashMap<&str, i32> = HashMap::from([("red", 0), ("green", 0), ("blue", 0)]);
 
-    game_data
-        .split("; ")
-        .collect::<Vec<&str>>()
-        .iter() // iterate over cube groups
-        .for_each(|group| {
-            group
-                .split(", ")
-                .collect::<Vec<&str>>()
-                .iter() // iterate over "<cube count> <cube color>" pairs
-                .for_each(|slice| {
-                    let cube_slice: Vec<&str> = slice.split(' ').collect::<Vec<&str>>();
-                    let cube_count: i32 = cube_slice.first().unwrap().parse::<i32>().unwrap();
-                    let cube_color: &str = cube_slice.last().unwrap();
+    let cube_groups = game_data.split("; ").collect::<Vec<&str>>();
 
-                    // remember maximum value for each color
-                    if cube_count > cube_data[cube_color] {
-                        cube_data.insert(cube_color, cube_count);
-                    }
-                });
-        });
+    for group in cube_groups.iter() {
+        let slices = group.split(", ").collect::<Vec<&str>>();
+
+        for slice in slices.iter() {
+            let cube_slice: Vec<&str> = slice.split(' ').collect::<Vec<&str>>();
+            let cube_count: i32 = cube_slice.first().unwrap().parse::<i32>().unwrap();
+            let cube_color: &str = cube_slice.last().unwrap();
+
+            // remember maximum value for each color
+            if cube_count > cube_data[cube_color] {
+                cube_data.insert(cube_color, cube_count);
+            }
+        }
+    }
 
     cube_data.values().product()
 }

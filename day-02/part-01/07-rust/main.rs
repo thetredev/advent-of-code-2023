@@ -16,12 +16,12 @@ fn is_possible(max_cubes: &HashMap<&str, i32>, game_data: &str) -> bool {
                 .split(", ")
                 .collect::<Vec<&str>>()
                 .iter() // iterate over "<cube count> <cube color>" pairs
-                .all(|slice| cubes_possible(max_cubes, slice.split(" ").collect()))
+                .all(|slice| cubes_possible(max_cubes, slice.split(' ').collect()))
         }) // verify single pair
 }
 
 fn game_data_from_line(line: &String) -> &str {
-    &line[line.find(":").unwrap() + 2..line.len()]
+    &line[line.find(':').unwrap() + 2..line.len()]
 }
 
 fn main() {

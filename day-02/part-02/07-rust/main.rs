@@ -4,15 +4,11 @@ use std::fs::read_to_string;
 fn cubes_product(game_data: &str) -> i32 {
     let mut cube_data: HashMap<&str, i32> = HashMap::from([("red", 0), ("green", 0), ("blue", 0)]);
 
-    let cube_groups = game_data.split("; ").collect::<Vec<&str>>();
-
-    for group in cube_groups.iter() {
-        let slices = group.split(", ").collect::<Vec<&str>>();
-
-        for slice in slices.iter() {
-            let cube_slice: Vec<&str> = slice.split(' ').collect::<Vec<&str>>();
-            let cube_count: i32 = cube_slice.first().unwrap().parse::<i32>().unwrap();
-            let cube_color: &str = cube_slice.last().unwrap();
+    for group in game_data.split("; ") {
+        for slice in group.split(", ") {
+            let mut cube_slice = slice.split(' ');
+            let cube_color: &str = cube_slice.next_back().unwrap();
+            let cube_count: i32 = cube_slice.next_back().unwrap().parse::<i32>().unwrap();
 
             // remember maximum value for each color
             if cube_count > cube_data[cube_color] {
